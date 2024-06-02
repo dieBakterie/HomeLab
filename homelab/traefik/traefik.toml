@@ -1,0 +1,14 @@
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+  [entryPoints.https]
+    address = ":443"
+
+[certificatesResolvers.myresolver.acme]
+  email = "your-email@example.com"
+  storage = "acme.json"
+  [certificatesResolvers.myresolver.acme.httpChallenge]
+    entryPoint = "http"
+
+[providers.docker]
+  exposedByDefault = false

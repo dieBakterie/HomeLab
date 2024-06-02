@@ -1,34 +1,8 @@
-# Mein HomeLab
-
-Repository für mein HomeLab
-
-## `traefik.toml`
-
-```toml
-[entryPoints]
-  [entryPoints.http]
-    address = ":80"
-  [entryPoints.https]
-    address = ":443"
-
-[certificatesResolvers.myresolver.acme]
-  email = "your-email@example.com"
-  storage = "acme.json"
-  [certificatesResolvers.myresolver.acme.httpChallenge]
-    entryPoint = "http"
-
-[providers.docker]
-  exposedByDefault = false
-```
-
-### Aktualisierte vollständige `docker-compose.yml`
-
-```yaml
 version: '3'
 
 services:
   traefik:
-    image: traefik:v2.2
+    image: traefik:latest
     container_name: traefik
     restart: unless-stopped
     ports:
@@ -48,7 +22,7 @@ services:
       - --certificatesResolvers.myresolver.acme.storage=/acme.json
 
   adguardhome:
-    image: adguard/adguardhome
+    image: adguard/adguardhome:latest
     container_name: adguardhome
     restart: unless-stopped
     ports:
@@ -62,7 +36,7 @@ services:
       - ./adguardhome/confdir:/opt/adguardhome/conf
 
   homeassistant:
-    image: homeassistant/home-assistant
+    image: homeassistant/home-assistant:latest
     container_name: homeassistant
     restart: unless-stopped
     ports:
@@ -71,7 +45,7 @@ services:
       - ./homeassistant/config:/config
 
   jellyfin:
-    image: jellyfin/jellyfin
+    image: jellyfin/jellyfin:latest
     container_name: jellyfin
     restart: unless-stopped
     ports:
@@ -95,12 +69,13 @@ services:
       - ./grafana/dashboards:/var/lib/grafana/dashboards
 
   promtail:
-    image: grafana/promtail:2.2.1
+    image: grafana/promtail:latest
     container_name: promtail
     volumes:
       - /var/log:/var/log
       - ./promtail:/etc/promtail
-    command: -config.file=/etc/promtail/promtail-config.yaml
+    command: 
+      - '--config.file=/etc/promtail/promtail-config.yaml'
 
   prometheus:
     image: prom/prometheus:latest
@@ -113,7 +88,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
 
   loki:
-    image: grafana/loki:2.2.1
+    image: grafana/loki:latest
     container_name: loki
     ports:
       - "3100:3100"
@@ -148,57 +123,17 @@ services:
       - "traefik.http.routers.vaultwarden.tls.certresolver=myresolver"
 
   photoprism:
-    image: photoprism/photoprism
+    image: photoprism/photoprism:latest
     container_name: photoprism
     restart: unless-stopped
     ports:
       - "2342:2342"
     environment:
       PHOTOPRISM_ADMIN_PASSWORD: "YourPassword"
-      PHOTOPRISM_UPLOAD_NSFW: "false"
+      PHOTOPRISM_UPLOAD_NSFW: "true"
     volumes:
       - ./photoprism/storage:/photoprism/storage
       - /home/pi/photos:/photoprism/originals
 
 volumes:
   grafana-storage:
-```
-
-### Zusammengefasst
-
-1. **Erstellen der Verzeichnisstruktur**:
-
-    ```bash
-    mkdir -p /home/pi/homelab/adguardhome/workdir
-    mkdir -p /home/pi/homelab/adguardhome/confdir
-    mkdir -p /home/pi/homelab/homeassistant/config
-    mkdir -p /home/pi/homelab/jellyfin/config
-    mkdir -p /home/pi/homelab/jellyfin/cache
-    mkdir -p /home/pi/homelab/nextcloud/html
-    mkdir -p /home/pi/homelab/nextcloud/data
-    mkdir -p /home/pi/homelab/vaultwarden/data
-    mkdir -p /home/pi/homelab/photoprism/storage
-    mkdir -p /home/pi/homelab/photoprism/originals
-    mkdir -p /home/pi/homelab/traefik
-    mkdir -p /home/pi/homelab/prometheus
-    mkdir -p /home/pi/homelab/loki
-    mkdir -p /home/pi/homelab/promtail
-    mkdir -p /home/pi/homelab/grafana/config
-    mkdir -p /home/pi/homelab/grafana/dashboards
-    touch /home/pi/homelab/traefik/acme.json
-    chmod 600 /home/pi/homelab/traefik/acme.json
-    ```
-
-2. **Erstellen der Konfigurationsdateien**:
-
-    - `traefik.toml` im Verzeichnis `/home/pi/homelab/traefik/`
-    - `prometheus.yml` im Verzeichnis `/home/pi/homelab/prometheus/`
-    - `loki-config.yaml` im Verzeichnis `/home/pi/homelab/loki/`
-    - `promtail-config.yaml` im Verzeichnis `/home/pi/homelab/promtail/`
-
-3. **Starten der Container**:
-
-    ```bash
-    cd /home/pi/homelab
-    docker-compose up -d
-    ```
