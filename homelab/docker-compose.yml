@@ -95,15 +95,21 @@ services:
       - ./loki:/etc/loki
 
   nextcloud:
-    image: nextcloud
+    image: nextcloud/all-in-one:latest
     container_name: nextcloud
     restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+      - "3478:3478/udp"
     volumes:
-      - ./nextcloud/html:/var/www/html
-      - ./nextcloud/data:/var/www/html/data
+      - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
+    environment:
+      NEXTCLOUD_ADMIN: admin
+      NEXTCLOUD_ADMIN_PASSWORD: supersecret
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.yourhome.dyndns.org`)"
+      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud-pi-homelab.duckdns.org`)"
       - "traefik.http.routers.nextcloud.entrypoints=https"
       - "traefik.http.routers.nextcloud.tls.certresolver=myresolver"
 
@@ -117,7 +123,7 @@ services:
       - ./vaultwarden/data:/data
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.vaultwarden.rule=Host(`vaultwarden.yourhome.dyndns.org`)"
+      - "traefik.http.routers.vaultwarden.rule=Host(`vaultwarden-pi-homelab.duckdns.org`)"
       - "traefik.http.routers.vaultwarden.entrypoints=https"
       - "traefik.http.routers.vaultwarden.tls.certresolver=myresolver"
 
@@ -136,3 +142,4 @@ services:
 
 volumes:
   grafana-storage:
+  nextcloud_aio_mastercontainer:
