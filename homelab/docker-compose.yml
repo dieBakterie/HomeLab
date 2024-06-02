@@ -2,7 +2,7 @@ version: '3'
 
 services:
   traefik:
-    image: traefik:latest
+    image: traefik:v2.2
     container_name: traefik
     restart: unless-stopped
     ports:
@@ -22,7 +22,7 @@ services:
       - --certificatesResolvers.myresolver.acme.storage=/acme.json
 
   adguardhome:
-    image: adguard/adguardhome:latest
+    image: adguard/adguardhome
     container_name: adguardhome
     restart: unless-stopped
     ports:
@@ -36,7 +36,7 @@ services:
       - ./adguardhome/confdir:/opt/adguardhome/conf
 
   homeassistant:
-    image: homeassistant/home-assistant:latest
+    image: homeassistant/home-assistant
     container_name: homeassistant
     restart: unless-stopped
     ports:
@@ -45,7 +45,7 @@ services:
       - ./homeassistant/config:/config
 
   jellyfin:
-    image: jellyfin/jellyfin:latest
+    image: jellyfin/jellyfin
     container_name: jellyfin
     restart: unless-stopped
     ports:
@@ -69,13 +69,12 @@ services:
       - ./grafana/dashboards:/var/lib/grafana/dashboards
 
   promtail:
-    image: grafana/promtail:latest
+    image: grafana/promtail:2.2.1
     container_name: promtail
     volumes:
       - /var/log:/var/log
       - ./promtail:/etc/promtail
-    command: 
-      - '--config.file=/etc/promtail/promtail-config.yaml'
+    command: -config.file=/etc/promtail/promtail-config.yaml
 
   prometheus:
     image: prom/prometheus:latest
@@ -88,7 +87,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
 
   loki:
-    image: grafana/loki:latest
+    image: grafana/loki:2.2.1
     container_name: loki
     ports:
       - "3100:3100"
@@ -123,7 +122,7 @@ services:
       - "traefik.http.routers.vaultwarden.tls.certresolver=myresolver"
 
   photoprism:
-    image: photoprism/photoprism:latest
+    image: photoprism/photoprism
     container_name: photoprism
     restart: unless-stopped
     ports:
