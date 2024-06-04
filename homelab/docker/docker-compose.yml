@@ -58,6 +58,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
@@ -67,6 +68,15 @@ services:
       - grafana-storage:/var/lib/grafana
       - ./grafana/config:/etc/grafana
       - ./grafana/dashboards:/var/lib/grafana/dashboards
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
 
   promtail:
     image: grafana/promtail:2.2.1
@@ -103,6 +113,8 @@ services:
       - "8443:8443"
       - "3478:3478/udp"
     volumes:
+    #  - ./nextcloud/html:/var/www/html
+    #  - ./nextcloud/data:/var/www/html/data
       - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
     environment:
       NEXTCLOUD_ADMIN: admin
@@ -118,12 +130,13 @@ services:
     container_name: vaultwarden
     restart: unless-stopped
     ports:
-      - "8081:80"
+      - "8086:8086"
     volumes:
       - ./vaultwarden/data:/data
+      - influxdb-storage:/var/lib/influxdb
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.vaultwarden.rule=Host(`vaultwarden-pi-homelab.duckdns.org`)"
+      - "traefik.http.routers.vaultwarden.rule=Host(`vaultwarden-homelab.duckdns.org`)"
       - "traefik.http.routers.vaultwarden.entrypoints=https"
       - "traefik.http.routers.vaultwarden.tls.certresolver=myresolver"
 
@@ -135,11 +148,13 @@ services:
       - "2342:2342"
     environment:
       PHOTOPRISM_ADMIN_PASSWORD: "YourPassword"
-      PHOTOPRISM_UPLOAD_NSFW: "true"
+      PHOTOPRISM_UPLOAD_NSFW: "false"
     volumes:
       - ./photoprism/storage:/photoprism/storage
       - /home/pi/photos:/photoprism/originals
+      - influxdb-storage:/var/lib/influxdb
 
 volumes:
   grafana-storage:
+  influxdb-storage:
   nextcloud_aio_mastercontainer:
