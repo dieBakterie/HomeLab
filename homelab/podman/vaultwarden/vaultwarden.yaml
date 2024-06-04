@@ -15,4 +15,4 @@ spec:
   volumes:
   - name: vaultwarden-data
     hostPath:
-      path: /home/pi/podman/pods/vaultwarden
+      path: /home/pi/homelab/podman/pods/vaultwarden

@@ -19,7 +19,7 @@ spec:
   volumes:
   - name: ncp-data
     hostPath:
-      path: /home/pi/podman/pods/nextcloudpi/data
+      path: /home/pi/homelab/podman/pods/nextcloudpi/data
   - name: ncp-config
     hostPath:
-      path: /home/pi/podman/pods/nextcloudpi/config
+      path: /home/pi/homelab/podman/pods/nextcloudpi/config

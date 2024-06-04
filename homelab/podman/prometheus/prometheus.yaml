@@ -15,4 +15,4 @@ spec:
   volumes:
   - name: prometheus-data
     hostPath:
-      path: /home/pi/podman/pods/prometheus
+      path: /home/pi/homelab/podman/pods/prometheus

@@ -16,7 +16,7 @@ pod:
           name: grafana-data
       volumes:
       - hostPath:
-          path: /home/pi/podman/grafana
+          path: /home/pi/homelab/podman/grafana
         name: grafana-data
   - apiVersion: v1
     kind: Pod
@@ -35,10 +35,10 @@ pod:
           name: jellyfin-media
       volumes:
       - hostPath:
-          path: /home/pi/podman/jellyfin/config
+          path: /home/pi/homelab/podman/jellyfin/config
         name: jellyfin-config
       - hostPath:
-          path: /home/pi/podman/jellyfin/media
+          path: /home/pi/homelab/podman/jellyfin/media
         name: jellyfin-media
   - apiVersion: v1
     kind: Pod
@@ -56,7 +56,7 @@ pod:
           name: loki-data
       volumes:
       - hostPath:
-          path: /home/pi/podman/loki
+          path: /home/pi/homelab/podman/loki
         name: loki-data
   - apiVersion: v1
     kind: Pod
@@ -78,10 +78,10 @@ pod:
           name: ncp-config
       volumes:
       - hostPath:
-          path: /home/pi/podman/nextcloud/data
+          path: /home/pi/homelab/podman/nextcloud/data
         name: ncp-data
       - hostPath:
-          path: /home/pi/podman/nextcloud/config
+          path: /home/pi/homelab/podman/nextcloud/config
         name: ncp-config
   - apiVersion: v1
     kind: Pod
@@ -99,7 +99,7 @@ pod:
           name: photoprism-data
       volumes:
       - hostPath:
-          path: /home/pi/podman/photoprism
+          path: /home/pi/homelab/podman/photoprism
         name: photoprism-data
   - apiVersion: v1
     kind: Pod
@@ -117,7 +117,7 @@ pod:
           name: prometheus-data
       volumes:
       - hostPath:
-          path: /home/pi/podman/prometheus
+          path: /home/pi/homelab/podman/prometheus
         name: prometheus-data
   - apiVersion: v1
     kind: Pod
@@ -135,7 +135,7 @@ pod:
           name: promtail-data
       volumes:
       - hostPath:
-          path: /home/pi/podman/promtail
+          path: /home/pi/homelab/podman/promtail
         name: promtail-data
   - apiVersion: v1
     kind: Pod
@@ -153,5 +153,5 @@ pod:
           name: vaultwarden-data
       volumes:
       - hostPath:
-          path: /home/pi/podman/vaultwarden
+          path: /home/pi/homelab/podman/vaultwarden
         name: vaultwarden-data

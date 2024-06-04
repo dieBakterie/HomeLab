@@ -16,7 +16,7 @@ spec:
   volumes:
   - name: jellyfin-config
     hostPath:
-      path: /home/pi/podman/pods/jellyfin/config
+      path: /home/pi/homelab/podman/pods/jellyfin/config
   - name: jellyfin-media
     hostPath:
-      path: /home/pi/podman/pods/jellyfin/media
+      path: /home/pi/homelab/podman/pods/jellyfin/media

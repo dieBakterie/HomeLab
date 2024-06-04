@@ -3,7 +3,7 @@
 # Funktion zum Erstellen von Verzeichnissen aus einer YAML-Datei
 create_directories_from_yaml() {
     yaml_file=$1
-    grep -E 'path: ' "$yaml_file" | awk '{print $2}' | while read -r path; do
+    grep -E 'hostPath:\s*path:\s*' "$yaml_file" | awk '{print $3}' | while read -r path; do
         if [ ! -d "$path" ]; then
             mkdir -p "$path"
             echo "Created directory: $path"

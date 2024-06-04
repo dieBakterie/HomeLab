@@ -15,4 +15,4 @@ spec:
   volumes:
   - name: promtail-data
     hostPath:
-      path: /home/pi/podman/log/promtail
+      path: /home/pi/homelab/podman/log/promtail

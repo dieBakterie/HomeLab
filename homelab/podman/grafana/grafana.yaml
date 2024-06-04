@@ -11,8 +11,8 @@ spec:
       hostPort: 3000
     volumeMounts:
     - name: grafana-data
-      mountPath: /home/pi/podman/pods/grafana
+      mountPath: /home/pi/homelab/podman/pods/grafana
   volumes:
   - name: grafana-data
     hostPath:
-      path: /home/pi/podman/pods/grafana
+      path: /home/pi/homelab/podman/pods/grafana

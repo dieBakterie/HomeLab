@@ -15,4 +15,4 @@ spec:
   volumes:
   - name: loki-data
     hostPath:
-      path: /home/pi/podman/pods/loki
+      path: /home/pi/homelab/podman/pods/loki

@@ -15,4 +15,4 @@ spec:
   volumes:
   - name: photoprism-data
     hostPath:
-      path: /home/pi/podman/pods/photoprism
+      path: /home/pi/homelab/podman/pods/photoprism
