@@ -1,10 +1,37 @@
-# Mein HomeLab
+# HomeLab
 
-Repository für mein HomeLab auf GitHub mit Docker und Podman sowie ein paar skripten für HomeLab.
+Repository für mein HomeLab auf GitHub mit Docker und Podman sowie ein paar skripten.
+
+## Services
+
+Services und Packages, welche ich verwende.
+
+Packages
+
+- AdGuard Home
+- Jellyfin
+
+</br>
+
+Services
+
+- `Podman`
+- `Docker`
+- `Cronjobs`
+- `Dynamisches DNS`
+- `No-IP`
 
 ## Skripte
 
 Mit dem Skript `podman_setup.sh` kann man eine HomeLab-Installation mit Podman machen. Es ruft die vershiedenen Skripte auf, die installiert werden, um die HomeLab-Installation zu konfigurieren.
+
+**Installieren von `curl` (falls noch nicht installiert)**:
+
+   ```bash
+   sudo apt-get install curl
+   ```
+
+</br>
 
 - podman_setup.sh
   - create_pods.sh
@@ -17,24 +44,25 @@ Mit dem Skript `podman_setup.sh` kann man eine HomeLab-Installation mit Podman m
 Ein grosser pod mit vershiedenen Docker-Services.
 <include:./c:/Users/Bakterie/Dokumente/HomeLab/homelab/podman/podman-compose.yml>
 
+Docker services
+(Grafana, Prometheus, Promtail, Loki, Jellyfinn, Nextcloud, Vaultwarden, Photoprism)
+
 ## Docker
 
-Eine Docker-Installation für HomeLab.
-<include:./c:/Users/Bakterie/Dokumente/HomeLab/homelab/docker/docker-compose.yml>
+Eine Docker-Installation für HomeLab. <include:./c:/Users/Bakterie/Dokumente/HomeLab/homelab/docker/docker-compose.yml></br>
+(Grafana, Prometheus, Promtail, Loki, AdGuardHome, Jellyfin, Nextcloud, Vaultwarden, Photoprism)
+
+</br></br>
 
 ## Dynamisches DNS
+
+(DuckDNS, No-IP)
 
 ### DuckDNS
 
 DuckDNS bietet eine einfache Möglichkeit, eine dynamische IP-Adresse mit einer statischen Subdomain zu verknüpfen. Hier sind die Schritte zur Einrichtung:
 
-1. **Installieren von `curl` (falls noch nicht installiert)**:
-
-   ```bash
-   sudo apt-get install curl
-   ```
-
-2. **Einrichten eines Cron-Jobs**:
+1. **Einrichten eines Cron-Jobs**:
 
    - Öffnen Sie den Crontab-Editor:
 
@@ -111,5 +139,3 @@ No-IP bietet einen offiziellen Dynamic Update Client (DUC), der die IP-Adresse a
    ```bash
    sudo systemctl status noip2
    ```
-
----
