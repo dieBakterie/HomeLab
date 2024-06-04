@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: promtail
+spec:
+  containers:
+  - name: promtail
+    image: docker.io/grafana/promtail
+    ports:
+    - containerPort: 9080
+      hostPort: 9080
+    volumeMounts:
+    - name: promtail-data
+      mountPath: /var/log
+  volumes:
+  - name: promtail-data
+    hostPath:
+      path: /home/pi/podman/log/promtail

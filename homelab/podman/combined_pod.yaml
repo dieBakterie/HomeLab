@@ -1,0 +1,157 @@
+pod:
+  containers:
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      name: grafana
+    spec:
+      containers:
+      - image: docker.io/grafana/grafana
+        name: grafana
+        ports:
+        - containerPort: 3000
+          hostPort: 3000
+        volumeMounts:
+        - mountPath: /grafana
+          name: grafana-data
+      volumes:
+      - hostPath:
+          path: /home/pi/podman/grafana
+        name: grafana-data
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      name: jellyfin
+    spec:
+      containers:
+      - image: docker.io/jellyfin/jellyfin
+        name: jellyfin
+        ports:
+        - containerPort: 8096
+        volumeMounts:
+        - mountPath: /config
+          name: jellyfin-config
+        - mountPath: /media
+          name: jellyfin-media
+      volumes:
+      - hostPath:
+          path: /home/pi/podman/jellyfin/config
+        name: jellyfin-config
+      - hostPath:
+          path: /home/pi/podman/jellyfin/media
+        name: jellyfin-media
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      name: loki
+    spec:
+      containers:
+      - image: docker.io/grafana/loki
+        name: loki
+        ports:
+        - containerPort: 3100
+          hostPort: 3100
+        volumeMounts:
+        - mountPath: /loki
+          name: loki-data
+      volumes:
+      - hostPath:
+          path: /home/pi/podman/loki
+        name: loki-data
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      name: nextcloud
+    spec:
+      containers:
+      - image: docker.io/nextcloud/all-in-one:latest
+        name: nextcloud
+        ports:
+        - containerPort: 80
+          hostPort: 80
+        - containerPort: 443
+          hostPort: 443
+        volumeMounts:
+        - mountPath: /data
+          name: ncp-data
+        - mountPath: /config
+          name: ncp-config
+      volumes:
+      - hostPath:
+          path: /home/pi/podman/nextcloud/data
+        name: ncp-data
+      - hostPath:
+          path: /home/pi/podman/nextcloud/config
+        name: ncp-config
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      name: photoprism
+    spec:
+      containers:
+      - image: docker.io/photoprism/photoprism
+        name: photoprism
+        ports:
+        - containerPort: 2342
+          hostPort: 2342
+        volumeMounts:
+        - mountPath: /originals
+          name: photoprism-data
+      volumes:
+      - hostPath:
+          path: /home/pi/podman/photoprism
+        name: photoprism-data
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      name: prometheus
+    spec:
+      containers:
+      - image: docker.io/prom/prometheus
+        name: prometheus
+        ports:
+        - containerPort: 9090
+          hostPort: 9090
+        volumeMounts:
+        - mountPath: /prometheus
+          name: prometheus-data
+      volumes:
+      - hostPath:
+          path: /home/pi/podman/prometheus
+        name: prometheus-data
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      name: promtail
+    spec:
+      containers:
+      - image: docker.io/grafana/promtail
+        name: promtail
+        ports:
+        - containerPort: 9080
+          hostPort: 9080
+        volumeMounts:
+        - mountPath: /promtail
+          name: promtail-data
+      volumes:
+      - hostPath:
+          path: /home/pi/podman/promtail
+        name: promtail-data
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      name: vaultwarden
+    spec:
+      containers:
+      - image: docker.io/vaultwarden/server
+        name: vaultwarden
+        ports:
+        - containerPort: 80
+          hostPort: 80
+        volumeMounts:
+        - mountPath: /vaultwarden
+          name: vaultwarden-data
+      volumes:
+      - hostPath:
+          path: /home/pi/podman/vaultwarden
+        name: vaultwarden-data

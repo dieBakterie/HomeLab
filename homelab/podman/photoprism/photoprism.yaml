@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: photoprism
+spec:
+  containers:
+  - name: photoprism
+    image: docker.io/photoprism/photoprism
+    ports:
+    - containerPort: 2342
+      hostPort: 2342
+    volumeMounts:
+    - name: photoprism-data
+      mountPath: /photoprism/originals
+  volumes:
+  - name: photoprism-data
+    hostPath:
+      path: /home/pi/podman/pods/photoprism

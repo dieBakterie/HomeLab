@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: prometheus
+spec:
+  containers:
+  - name: prometheus
+    image: docker.io/prom/prometheus
+    ports:
+    - containerPort: 9090
+      hostPort: 9090
+    volumeMounts:
+    - name: prometheus-data
+      mountPath: /prometheus
+  volumes:
+  - name: prometheus-data
+    hostPath:
+      path: /home/pi/podman/pods/prometheus

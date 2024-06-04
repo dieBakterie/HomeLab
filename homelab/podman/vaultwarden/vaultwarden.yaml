@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: vaultwarden
+spec:
+  containers:
+  - name: vaultwarden
+    image: docker.io/vaultwarden/server
+    ports:
+    - containerPort: 80
+      hostPort: 80
+    volumeMounts:
+    - name: vaultwarden-data
+      mountPath: /data
+  volumes:
+  - name: vaultwarden-data
+    hostPath:
+      path: /home/pi/podman/pods/vaultwarden

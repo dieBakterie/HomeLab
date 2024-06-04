@@ -1,0 +1,22 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: jellyfin
+spec:
+  containers:
+  - name: jellyfin
+    image: docker.io/jellyfin/jellyfin
+    ports:
+    - containerPort: 8096
+    volumeMounts:
+    - name: jellyfin-config
+      mountPath: /config
+    - name: jellyfin-media
+      mountPath: /media
+  volumes:
+  - name: jellyfin-config
+    hostPath:
+      path: /home/pi/podman/pods/jellyfin/config
+  - name: jellyfin-media
+    hostPath:
+      path: /home/pi/podman/pods/jellyfin/media

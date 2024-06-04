@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: loki
+spec:
+  containers:
+  - name: loki
+    image: docker.io/grafana/loki
+    ports:
+    - containerPort: 3100
+      hostPort: 3100
+    volumeMounts:
+    - name: loki-data
+      mountPath: /loki
+  volumes:
+  - name: loki-data
+    hostPath:
+      path: /home/pi/podman/pods/loki
