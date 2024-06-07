@@ -4,16 +4,16 @@ Repository für mein HomeLab auf GitHub mit Docker und Podman sowie ein paar skr
 
 ## Services
 
-Services und Packages, welche ich verwende.
+Dienste und Pakete, welche ich verwende.
 
-Packages
+Pakete
 
 - AdGuard Home
-- Jellyfin
+- Jellyfin Server/web
 
 </br>
 
-Services
+Dienste
 
 - `Podman`
 - `Docker`
@@ -23,40 +23,49 @@ Services
 
 ## Skripte
 
-Mit dem Skript `podman_setup.sh` kann man eine HomeLab-Installation mit Podman machen. Es ruft die vershiedenen Skripte auf, die installiert werden, um die HomeLab-Installation zu konfigurieren.
-
-**Installieren von `curl` (falls noch nicht installiert)**:
-
-   ```bash
-   sudo apt-get install curl
-   ```
-
-</br>
-
-- podman_setup.sh
-  - create_pods.sh
-  - update_paths.sh
-  - install_adguard.sh
-  - install_jellyfinn.sh
+Mit dem Skript `homelab_setup.sh` kann man eine HomeLab-Installation mit vershiednen Skripten machen. Es ruft die vershiedene Skripte auf, um die HomeLab-Installation zu konfigurieren.
 
 ## Podman
 
-Ein grosser pod mit vershiedenen Docker-Services.
-<include:./c:/Users/Bakterie/Dokumente/HomeLab/homelab/podman/podman-compose.yml>
+Ein großer Pod mit vershiedenen "Docker"-Services. <include:./c:/Users/Bakterie/Dokumente/HomeLab/homelab/podman/podman-compose.yml>
 
-Docker services
-(Grafana, Prometheus, Promtail, Loki, Jellyfinn, Nextcloud, Vaultwarden, Photoprism)
+Folgende Dienste:
+
+- AdGuard Home
+- Jellyfin
+- Nextcloud(All-In-One)
+- Photoprism
+- Vaultwarden
+- Prometheus
+- Grafana
+- Promtail
+- Loki
+- Traefik
+- influxdb
 
 ## Docker
 
 Eine Docker-Installation für HomeLab. <include:./c:/Users/Bakterie/Dokumente/HomeLab/homelab/docker/docker-compose.yml></br>
-(Grafana, Prometheus, Promtail, Loki, AdGuardHome, Jellyfin, Nextcloud, Vaultwarden, Photoprism)
+
+Folgende Dienste:
+
+- AdGuard Home
+- Jellyfin
+- Nextcloud(All-In-One)
+- Photoprism
+- Vaultwarden
+- Prometheus
+- Grafana
+- Promtail
+- Loki
+- Traefik
+- influxdb
 
 </br></br>
 
 ## Dynamisches DNS
 
-(DuckDNS, No-IP)
+Ich verwende für Dynamisches DNS die DuckDNS. Es gibt auch die Möglichkeit, No-IP zu verwenden, jedoch kann man dort nur eine domäne erstellen. DuckDNS bietet die Möglichkeit, mehrere Domänen zu erstellen, bis zu fünf um genau zu sein. Duckdns bietet jedoch im gegensatz zu No-IP kein Paket an um die IP-Adresse automatisch zu aktualisieren. Wir können Cronjob nutzen wie hier in diesem Beispiel um alle fünf Minuten die IP-Adresse zu aktualisieren.
 
 ### DuckDNS
 
