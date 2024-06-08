@@ -1,17 +1,10 @@
 # HomeLab
 
-Repository für mein HomeLab auf GitHub mit Docker und Podman sowie ein paar skripten.
+Repository für mein HomeLab auf GitHub mit Docker oder Podman sowie ein paar Skripten um HomeLab, Docker oder Podman einzurichten.
 
-## Services
+## Dienste
 
-Dienste und Pakete, welche ich verwende.
-
-Pakete
-
-- AdGuard Home
-- Jellyfin Server/web
-
-</br>
+Dienste und Standalone Pakete, welche ich verwende.
 
 Dienste
 
@@ -20,6 +13,13 @@ Dienste
 - `Cronjobs`
 - `Dynamisches DNS`
 - `No-IP`
+
+</br>
+
+Pakete
+
+- AdGuard Home
+- Jellyfin Server mit web-ui
 
 ## Skripte
 
