@@ -8,11 +8,11 @@ Dienste und Standalone Pakete, welche ich verwende.
 
 Dienste
 
-- `Podman`
-- `Docker`
-- `Cronjobs`
-- `Dynamisches DNS`
-- `No-IP`
+- Podman
+- Docker
+- Cronjobs
+- Dynamisches DNS
+- No-IP
 
 </br>
 
