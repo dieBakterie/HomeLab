@@ -23,13 +23,11 @@ Pakete
 
 ## Skripte
 
-Mit dem Skript `homelab_setup.sh` kann man eine HomeLab-Installation mit vershiednen Skripten machen. Es ruft die vershiedene Skripte auf, um die HomeLab-Installation zu konfigurieren.
+Mit dem Skript [homelab_setup.sh](https://github.com/dieBakterie/HomeLab/blob/6c10260ab1b7b8b12fae87aab1cb5d22b95db4d7/homelab/podman/podman-compose.yaml) kann man eine HomeLab-Installation mit vershiednen Skripten machen. Es ruft die vershiedene Skripte auf, um die HomeLab-Installation zu konfigurieren.
 
 ## Podman
 
-Ein großer Pod mit vershiedenen "Docker"-Services. <include:./c:/Users/Bakterie/Dokumente/HomeLab/homelab/podman/podman-compose.yml>
-
-Folgende Dienste:
+**Ein** großer Pod mit verschiedenen Diensten und ein skript, welches es einem ermöglicht alle Pfade in einem 
 
 - AdGuard Home
 - Jellyfin
@@ -45,9 +43,7 @@ Folgende Dienste:
 
 ## Docker
 
-Eine Docker-Installation für HomeLab. <include:./c:/Users/Bakterie/Dokumente/HomeLab/homelab/docker/docker-compose.yml></br>
-
-Folgende Dienste:
+Eine Docker-Installation für HomeLab. Mit dem Skript [docker_setup.sh](https://github.com/dieBakterie/HomeLab/blob/6c10260ab1b7b8b12fae87aab1cb5d22b95db4d7/homelab/Skripte/docker_setup.sh) lässt sich anhand einer yaml/yml Datei ein oder mehrere Docker-Container erstellen lassen. Die folgenden Dienste, wie in der [docker-compose.yaml](https://github.com/dieBakterie/HomeLab/blob/6c10260ab1b7b8b12fae87aab1cb5d22b95db4d7/homelab/docker/docker-compose.yaml) festgelegt, werden verwendet.
 
 - AdGuard Home
 - Jellyfin
@@ -61,11 +57,9 @@ Folgende Dienste:
 - Traefik
 - influxdb
 
-</br></br>
-
 ## Dynamisches DNS
 
-Ich verwende für Dynamisches DNS die DuckDNS. Es gibt auch die Möglichkeit, No-IP zu verwenden, jedoch kann man dort nur eine domäne erstellen. DuckDNS bietet die Möglichkeit, mehrere Domänen zu erstellen, bis zu fünf um genau zu sein. Duckdns bietet jedoch im gegensatz zu No-IP kein Paket an um die IP-Adresse automatisch zu aktualisieren. Wir können Cronjob nutzen wie hier in diesem Beispiel um alle fünf Minuten die IP-Adresse zu aktualisieren.
+Ich verwende für Dynamisches DNS die DuckDNS. Ich möchte nextcloud, vaultwarden und Jellyfin auch von außerhalb meines Netzwerkes erreichen können. Es gibt auch die Möglichkeit, No-IP zu verwenden, jedoch kann man dort nur eine domäne erstellen. DuckDNS bietet die Möglichkeit, mehrere Domänen zu erstellen, bis zu fünf um genau zu sein. Duckdns bietet jedoch im gegensatz zu No-IP kein Paket an um die IP-Adresse automatisch zu aktualisieren. Wir können Cronjob nutzen wie hier in diesem Beispiel um alle fünf Minuten die IP-Adresse zu aktualisieren.
 
 ### DuckDNS
 
