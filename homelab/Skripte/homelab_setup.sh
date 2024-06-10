@@ -8,11 +8,15 @@
 # Returns:
 # - None
 install_adguard() {
-    if [ ! -f "install_adguard.sh" ]; then
-        curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+    if ! command -v AdGuardHome &> /dev/null; then
+        if [ ! -f "install_adguard.sh" ]; then
+            curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+        else
+            echo "install_adguard.sh found, executing!"
+            sh install_adguard.sh
+        fi
     else
-        echo "install_adguard.sh found, executing!"
-        sh install_adguard.sh
+        echo "AdGuard Home is already installed"
     fi
 }
 
@@ -25,14 +29,38 @@ install_adguard() {
 # Returns:
 # - None
 install_jellyfin() {
-    if [ ! -f "install-debuntu.sh" ]; then
-        curl -s https://repo.jellyfin.org/install-debuntu.sh | sudo bash
+    if ! command -v jellyfin &> /dev/null; then
+        if [ ! -f "install-debuntu.sh" ]; then
+            curl -s https://repo.jellyfin.org/install-debuntu.sh | sudo bash
+        else
+            echo "install-debuntu.sh found, executing!"
+            sudo bash install-debuntu.sh
+        fi
     else
-        echo "install-debuntu.sh found, executing!"
-        sudo bash install-debuntu.sh
+        echo "Jellyfin is already installed"
     fi
 }
 
+# Downloads the Jellyfin installation script If it is not found in the current directory.
+# If the script is found, it executes it with sudo privileges.
+#
+# Parameters:
+# - None
+#
+# Returns:
+# - None
+install_coolify() {
+    if ! command -v coolify &> /dev/null; then
+        if [ ! -f "install.sh" ]; then
+            curl -fsSL https://cdn.coollabs.io/coolify/install.sh | bash
+        else
+            echo "install.sh found, executing!"
+            bash install-debuntu.sh
+        fi
+    else
+        echo "Coolify is already installed"
+    fi
+}
 
 setup_podman() {
     if [ ! -f "podman_setup.sh" ]; then
