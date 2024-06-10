@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Downloads the install_adguard.sh script and AdGuardHome installation script, and executes the install_adguard.sh script, if the install_adguard.sh script is not found. If the script is found in the current directory, it executes it.
+# Downloads the AdGuardHome installation script, and executes the install_adguard.sh script, if the install_adguard.sh script is not found. If the script is found in the current directory, it executes it.
 #
 # Parameters:
 # - None
@@ -16,7 +16,7 @@ install_adguard() {
     fi
 }
 
-# Installs Jellyfin if the "install_jellyfin.sh" script is not found in the current directory.
+# Downloads the Jellyfin installation script If it is not found in the current directory.
 # If the script is found, it executes it with sudo privileges.
 #
 # Parameters:
@@ -51,3 +51,43 @@ setup_docker() {
         bash docker_setup.sh
     fi
 }
+
+# This function presents a main menu to the user with various options.
+# The user is prompted to enter their choices, which are then processed.
+# Parameters:
+# - None
+#
+# Returns:
+# - None
+main_menu() {
+    echo "Select options (e.g., 1,2,4):"
+    echo "1. Install AdguardHome standalone"
+    echo "2. Install Jellyfin Server standalone"
+    echo "3. Install Coolify standalone"
+    echo "4. Setup Podman"
+    echo "5. Setup Docker"
+    echo "6. Exit"
+    read -p "Enter your choices: " choices
+
+    IFS=',' read -ra choice_array <<<"$choices"
+
+    for choice in "${choice_array[@]}"; do
+        case $choice in
+        1) install_adguard ;;
+        2) install_jellyfin ;;
+        3) install_coolify ;;
+        4) setup_podman ;;
+        5) setup_docker ;;
+        6) exit 0 ;;
+        *) echo "Invalid choice: $choice" ;;
+        esac
+    done
+}
+
+# This function calls the main menu function.
+# Parameters:
+# - None
+#
+# Returns:
+# - None
+main_menu
