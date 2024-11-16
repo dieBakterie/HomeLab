@@ -21,9 +21,30 @@ services:
       - --certificatesResolvers.myresolver.acme.email=your-email@example.com
       - --certificatesResolvers.myresolver.acme.storage=/acme.json
 
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+    environment:
+      TZ: 'Europe/Berlin'
+      # WEBPASSWORD: 'set a secure password here or it will be random'
+    # Volumes store your data between container upgrades
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped # Recommended but not required (DHCP needs NET_ADMIN)
+
   adguardhome:
-    image: adguard/adguardhome
     container_name: adguardhome
+    image: adguard/adguardhome
     restart: unless-stopped
     ports:
       - "53:53/tcp"
@@ -36,8 +57,8 @@ services:
       - ./adguardhome/confdir:/opt/adguardhome/conf
 
   homeassistant:
-    image: homeassistant/home-assistant
     container_name: homeassistant
+    image: homeassistant/home-assistant
     restart: unless-stopped
     ports:
       - "8123:8123"
@@ -45,8 +66,8 @@ services:
       - ./homeassistant/config:/config
 
   jellyfin:
-    image: jellyfin/jellyfin
     container_name: jellyfin
+    image: jellyfin/jellyfin
     restart: unless-stopped
     ports:
       - "8096:8096"
@@ -56,8 +77,8 @@ services:
       - /path/to/media:/media
 
   grafana:
-    image: grafana/grafana:latest
     container_name: grafana
+    image: grafana/grafana:latest
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -70,8 +91,8 @@ services:
       - ./grafana/dashboards:/var/lib/grafana/dashboards
 
   influxdb:
-    image: influxdb:latest
     container_name: influxdb
+    image: influxdb:latest
     restart: unless-stopped
     ports:
       - "8086:8086"
@@ -79,16 +100,16 @@ services:
       - influxdb-storage:/var/lib/influxdb
 
   promtail:
-    image: grafana/promtail:2.2.1
     container_name: promtail
+    image: grafana/promtail:2.2.1
     volumes:
       - /var/log:/var/log
       - ./promtail:/etc/promtail
     command: -config.file=/etc/promtail/promtail-config.yaml
 
   prometheus:
-    image: prom/prometheus:latest
     container_name: prometheus
+    image: prom/prometheus:latest
     ports:
       - "9090:9090"
     volumes:
@@ -97,16 +118,16 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
 
   loki:
-    image: grafana/loki:2.2.1
     container_name: loki
+    image: grafana/loki:2.2.1
     ports:
       - "3100:3100"
     volumes:
       - ./loki:/etc/loki
 
   nextcloud:
-    image: nextcloud/all-in-one:latest
     container_name: nextcloud
+    image: nextcloud/all-in-one:latest
     restart: unless-stopped
     ports:
       - "8080:8080"
@@ -126,8 +147,8 @@ services:
       - "traefik.http.routers.nextcloud.tls.certresolver=myresolver"
 
   vaultwarden:
-    image: vaultwarden/server:latest
     container_name: vaultwarden
+    image: vaultwarden/server:latest
     restart: unless-stopped
     volumes:
       - ./vaultwarden/data:/data
@@ -139,8 +160,8 @@ services:
       - "traefik.http.routers.vaultwarden.tls.certresolver=myresolver"
 
   photoprism:
-    image: photoprism/photoprism
     container_name: photoprism
+    image: photoprism/photoprism
     restart: unless-stopped
     ports:
       - "2342:2342"
