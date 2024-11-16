@@ -129,8 +129,6 @@ services:
     image: vaultwarden/server:latest
     container_name: vaultwarden
     restart: unless-stopped
-    ports:
-      - "8086:8086"
     volumes:
       - ./vaultwarden/data:/data
       - influxdb-storage:/var/lib/influxdb
