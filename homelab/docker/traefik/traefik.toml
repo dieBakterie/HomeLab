@@ -5,7 +5,7 @@
     address = ":443"
 
 [certificatesResolvers.myresolver.acme]
-  email = "diebakterie04@gmail.com"
+  email = "your-email@example-mail.com"
   storage = "acme.json"
   [certificatesResolvers.myresolver.acme.httpChallenge]
     entryPoint = "http"
